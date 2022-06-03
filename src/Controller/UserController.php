@@ -30,7 +30,10 @@ class UserController extends AbstractController
             if ($user != null) {
                 if(password_verify($form->get('password')->getData(),$user->getPassword()))
                 {
-                    $this->addFlash("success","Авторизовался чепух");
+                    setcookie("login",$user->getLogin(),time()+3600*24*14);
+                    setcookie("password",$form->get('password')->getData(),time()+3600*24*14);
+                    setcookie("fullName",$user->getFullName(),time()+3600*24*14);
+                    return $this->redirectToRoute("home_page");
                 }
                 else {
                     array_push($errors,"Пароль неправильный");

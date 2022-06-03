@@ -9,3 +9,23 @@ kernel:
 auth:
     path: /login
     controller: App\Controller\UserController::index
+
+register:
+    path: /register
+    controller: App\Controller\RegisterController::index
+
+home_page:
+    path: /home
+    controller: App\Controller\MainPageController::index
+
+exit:
+    path: /exit
+    controller: App\Controller\ExitController::index
+
+profile:
+    path: /profile
+    controller: App\Controller\ProfileController::index
+
+search:
+    path: /search
+    controller: App\Controller\SearchController::index

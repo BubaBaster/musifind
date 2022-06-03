@@ -25,7 +25,10 @@ class LoginType extends AbstractType
                 "required"=>true,
             ])
             ->add('submit',SubmitType::class,[
-
+                "label"=>"Войти",
+                "attr"=>[
+                    "class"=>"loginBtn",
+                ]
             ])
         ;
     }

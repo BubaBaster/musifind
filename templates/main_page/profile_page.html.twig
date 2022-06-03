@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html  lang="ru">
+<head>
+    <title>Профиль</title>
+    <link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: #363636;
+        }
+        .sidenav {
+            height: 100%;
+            width: 200px;
+            position: fixed;
+            z-index: 1;
+            top: 0;
+            left: 0;
+            background-color: #252525;
+            overflow: hidden;
+        }
+
+        .sidenav a {
+            padding: 10px 20px 10px 10px;
+            text-decoration: none;
+            font-size: 25px;
+            color: #FFFFFF;
+            display: block;
+        }
+
+        .sidenav a:hover {
+            background-color: #16AF4A;
+            color: #292929;
+        }
+
+        .sidenav a.active {
+            background-color: #FFFFFF;
+            color: white;
+        }
+
+        .main {
+            margin-left: 200px;
+            font-size: 25px;
+            color: #FFFFFF;
+        }
+
+        @media screen and (max-height: 450px) {
+            .sidenav {padding-top: 15px;}
+            .sidenav a {font-size: 18px;}
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        .topnav {
+            margin-left: 200px;
+            height: 79px;
+            overflow: hidden;
+            background-color: #2C2C2C;
+        }
+
+        .topnav a {
+            color: #FFFFFF;
+            padding: 25px;
+            text-decoration: none;
+            font-size: 25px;
+        }
+
+        .topnav a:hover {
+            background-color: #A9A9A9;
+            color: #292929;
+        }
+
+        .topnav a.active {
+            background-color: #16AF4A;
+            color: white;
+        }
+
+        hr {
+            border: none;
+            border-bottom: 2px solid #646B67;
+            color: #646B67;
+            height: 2px;
+            align: center;
+            width: 85%;
+        }
+
+        .round {
+            border-radius: 100px;
+        }
+
+        .logoutBtn{
+            margin-top: 24.15em;
+            padding: 10px 20px 10px 10px;
+            text-decoration: none;
+            font-size: 25px;
+            color: #FFFFFF;
+        }
+
+        .information{
+            width: 45%;
+            height: 579px;
+            margin-left: auto;
+            margin-right: auto;
+            border-radius: 0.5rem;
+            background: #292929;
+        }
+
+        select{
+            width: 89%;
+            border: none;
+            border-radius: 0.25rem;
+            padding: 0.375rem 0.5rem;
+            background: #464646;
+            color: #FFFFFF;
+        }
+
+        /*textarea {*/
+        /*    width: 85.5%;*/
+        /*    background: #464646;*/
+        /*    border: none;*/
+        /*    border-radius: 0.25rem;*/
+        /*    padding: 10px;*/
+        /*    height: 100px;*/
+        /*    font-size: 14px;*/
+        /*    resize: none;*/
+        /*    color: #FFFFFF*/
+        /*}*/
+
+        .submitBtn{
+            color: white;
+            background: #16AF4A;
+            border-radius: 1rem;
+            padding: 0.5em;
+            font-size: 20px;
+            border: none;
+            margin-bottom: 1em;
+        }
+
+        .pictureBtn{
+            color: white;
+            background: #16AF4A;
+            border-radius: 1rem;
+            padding: 0.5em;
+            font-size: 16px;
+            border: none;
+            cursor: pointer;
+            margin-bottom: 1em;
+        }
+
+        .pictureBtn:hover{
+            color: #292929;
+        }
+
+        .modal {
+            display: none; /* Hidden by default */
+            position: fixed; /* Stay in place */
+            z-index: 1; /* Sit on top */
+            padding-top: 100px; /* Location of the box */
+            left: 0;
+            top: 0;
+            width: 100%; /* Full width */
+            height: 100%; /* Full height */
+            overflow: auto; /* Enable scroll if needed */
+            background-color: rgb(0,0,0); /* Fallback color */
+            background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+        }
+
+
+        .modal-content {
+            position: relative;
+            background-color: #E1BEE7;
+            margin: auto;
+            padding: 0;
+            border: none;
+            width: 50%;
+            box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+            -webkit-animation-name: animatetop;
+            -webkit-animation-duration: 0.4s;
+            animation-name: animatetop;
+            animation-duration: 0.4s
+        }
+
+
+        @-webkit-keyframes animatetop {
+            from {top:-300px; opacity:0}
+            to {top:0; opacity:1}
+        }
+
+        @keyframes animatetop {
+            from {top:-300px; opacity:0}
+            to {top:0; opacity:1}
+        }
+
+
+        .close {
+            color: white;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: #292929;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .modal-header {
+            padding: 2px 16px;
+            background-color: #16AF4A;
+            color: white;
+        }
+
+        .modal-body {
+            padding: 2px 16px;
+            background-color: #FFFFFF;
+        }
+
+        .modal-footer {
+            padding: 2px 16px;
+            background-color: #16AF4A;
+            color: white;
+        }
+
+        .input__wrapper {
+            width: 100%;
+            position: relative;
+            margin: 15px 0;
+            text-align: center;
+        }
+
+        .input__file {
+            opacity: 0;
+            visibility: hidden;
+            position: absolute;
+        }
+
+        .input__file-icon-wrapper {
+            height: 60px;
+            width: 60px;
+            margin-right: 15px;
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            -webkit-box-align: center;
+            -ms-flex-align: center;
+            align-items: center;
+            -webkit-box-pack: center;
+            -ms-flex-pack: center;
+            justify-content: center;
+            border-right: 1px solid #fff;
+        }
+
+        .input__file-button-text {
+            line-height: 1;
+            margin-top: 1px;
+        }
+
+        .input__file-button {
+            width: 100%;
+            max-width: 290px;
+            height: 60px;
+            background: #16AF4A;
+            color: #fff;
+            font-size: 1.125rem;
+            font-weight: 700;
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            -webkit-box-align: center;
+            -ms-flex-align: center;
+            align-items: center;
+            -webkit-box-pack: start;
+            -ms-flex-pack: start;
+            justify-content: flex-start;
+            border-radius: 3px;
+            cursor: pointer;
+            margin: 0 auto;
+        }
+
+        .loginBtn{
+            color: white;
+            padding: 0.8em 0.8em;
+            margin-top: 1em;
+            margin-bottom: 1em;
+            background: #16AF4A ;
+            border-radius: 1rem;
+            border: none;
+            width: 15%;
+            margin-right: auto;
+            margin-left: auto;
+            display:inline-block;
+        }
+
+        .saveBtn{
+            color: white;
+            padding: 0.8em 0.8em;
+            margin-top: 1em;
+            margin-bottom: 1em;
+            background: #16AF4A ;
+            border-radius: 1rem;
+            border: none;
+            width: 30%;
+            margin-right: auto;
+            margin-left: auto;
+            display:inline-block;
+            font-size: 16px;
+        }
+
+        .saveBtn:hover{
+            color: #292929;
+        }
+
+        .infoInput{
+            width: 85%;
+            border: none;
+            border-radius: 0.25rem;
+            height: 30px;
+            margin-top: 0.5em;
+            margin-bottom: 0.5em;
+            background: #464646;
+            color: #FFFFFF;
+            font-size: 16px;
+            text-indent: 11px;
+        }
+
+        .infoInputSex{
+            width: 85%;
+            border: none;
+            border-radius: 0.25rem;
+            height: 30px;
+            margin-top: 0.5em;
+            margin-bottom: 0.5em;
+            background: #464646;
+            color: #FFFFFF;
+            font-size: 16px;
+        }
+
+
+
+    </style>
+</head>
+<body>
+
+<div>
+    <div class="sidenav">
+        <p  align="center" style="color:#FFFFFF; font-size:25px">
+            Musifind</p>
+        <a href="/profile" style="background-color: #16AF4A; color: #292929">Профиль</a>
+        <a href="/search">Поиск</a>
+            <a href="/exit" class="logoutBtn"/>Выход</a>
+    </div>
+
+    <div class="topnav">
+        <div style=" display: inline;"> <img style="border-radius: 100%; float: right; vertical-align: middle; margin-top: 13.5px; margin-left: 2em; margin-right: 2em;" src="https://i.ibb.co/cxTMfy3/kw-RGub-ZZvcg.jpg" width="50px" ></div>
+        <p align="center" style="color:#ffffff; font-size:25px; display: inline; float: right;">
+            {{ fullName }}</p>
+    </div>
+</div>
+
+
+<div class="main">
+    <hr>
+    <p align="center" style="color:#FFFFFF; font-size:20px">
+        Галерея</p>
+    <div>
+    {% for path in profile.getImages %}
+            <img style="display: inline; margin: auto" width="250px" src="{{ asset("images/" ~ path.path ~ '') }}">
+    {% endfor %}
+    </div>
+    <center>
+        <div style="width: 100%; margin-top: 0.25em; margin-right: auto; margin-left: auto;">
+                <button class="pictureBtn" id="myBtn">Добавить фотографию</button> </form>
+        </div>
+        <div id="myModal" class="modal" {% if fileError is defined and fileError==true %}style="display: block"{% endif %}>
+
+
+            <div class="modal-content">
+                <div class="modal-header">
+                    <span class="close">&times;</span>
+                    <h2>Загрузите до 5 фотографий в галерею.</h2>
+                </div>
+                <div class="modal-body">
+                    {% if fileError is defined and fileError==true %}
+                        {{ fileMessage }}
+                    {% endif %}
+                    {{ form_start(formImg) }}
+                    <div class="input__wrapper">
+                        {{ form_widget(formImg.image) }}
+                        <label for="image_image" class="input__file-button">
+                            <span class="input__file-icon-wrapper"><img class="input__file-icon" src="{{ asset("build/images/add.svg") }}" alt="Выбрать файл" width="25"></span>
+                            <span class="input__file-button-text">Выберите файл</span>
+                        </label>
+
+
+                    </div>
+                    {{ form_end(formImg) }}
+                </div>
+
+            </div>
+
+        </div>
+
+        <div style="width: 100%; margin-right: auto; margin-left: auto;"> <form action="/profiie">
+                <button class="pictureBtn">Фотография профиля</button> </form>
+        </div>
+    </center>
+    <hr>
+    <p align="center" style="color:#FFFFFF; font-size:20px">
+        О себе</p>
+
+    <div style="font-size: 16px">
+    <center><p style="font-size: 16px">{{ profile.about|raw}}</p></center>
+    </div>
+    <hr>
+
+    <p align="center" style="color:#FFFFFF; font-size:20px">
+        Личная информация</p>
+
+
+    <div class="information" style="padding-top: 0.5em;">
+
+        <center>
+            {{ form_start(form) }}
+            {{ form_label(form.sex) }}
+            {{ form_errors(form.sex) }}
+            {{ form_widget(form.sex) }}
+            {{ form_help(form.sex) }}
+            {{ form_end(form) }}
+        </center>
+    </div>
+</div>
+<script type="text/javascript">
+    var modal = document.getElementById('myModal');
+
+
+    var btn = document.getElementById("myBtn");
+
+
+    var span = document.getElementsByClassName("close")[0];
+
+
+    btn.onclick = function() {
+        modal.style.display = "block";
+    }
+
+
+    span.onclick = function() {
+        modal.style.display = "none";
+    }
+
+
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+
+</script>
+
+<script>
+    let inputs = document.querySelectorAll('.input__file');
+    Array.prototype.forEach.call(inputs, function (input) {
+        let label = input.nextElementSibling,
+            labelVal = label.querySelector('.input__file-button-text').innerText;
+
+        input.addEventListener('change', function (e) {
+            let countFiles = '';
+            if (this.files && this.files.length >= 1)
+                countFiles = this.files.length;
+
+            if (countFiles)
+                label.querySelector('.input__file-button-text').innerText = 'Выбрано файлов: ' + countFiles;
+            else
+                label.querySelector('.input__file-button-text').innerText = labelVal;
+        });
+    });
+</script>
+
+</body>
+</html>

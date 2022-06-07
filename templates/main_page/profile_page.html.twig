@@ -393,7 +393,7 @@
                 </div>
                 <div class="modal-body">
                     {% if fileError is defined and fileError==true %}
-                        {{ fileMessage }}
+                        <div style="color: red">{{ fileMessage }}</div>
                     {% endif %}
                     {{ form_start(formImg) }}
                     <div class="input__wrapper">

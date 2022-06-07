@@ -26,6 +26,10 @@ profile:
     path: /profile
     controller: App\Controller\ProfileController::index
 
+profile_get:
+    path: /profile/{id}
+    controller: App\Controller\ProfileController::getProfile
+
 search:
     path: /search
     controller: App\Controller\SearchController::index

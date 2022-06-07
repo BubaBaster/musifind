@@ -198,7 +198,9 @@
     <p align="left" style="color:#FFFFFF; font-size:20px; margin-left: 1em;">
         Высокая совместимость</p>
     {% for user in users %}
-    <div>{{ user.login }}</div>
+        {% if user.login != login %}
+    <a href="/profile/{{ user.id }}">{{ user.login }}</a>
+        {% endif %}
     {% endfor %}
     <p align="left" style="color:#FFFFFF; font-size:20px; margin-left: 1em;">
         Средняя совместимость</p>

@@ -38,8 +38,21 @@ class ProfileController extends AbstractController
 
         $formImg = $this->createForm(ImageType::class);
         $formImg->handleRequest($request);
-        if($formImg->isSubmitted() && $formImg->isValid())
+        if($formImg->isSubmitted())
         {
+            if (!$formImg->isValid()){
+                return $this->render("main_page/profile_page.html.twig",[
+                        "login"=>$_COOKIE['login'],
+                        "fullName"=>$_COOKIE['fullName'],
+                        "form"=>$form->createView(),
+                        "profile"=>$profile,
+                        "formImg"=>$formImg->createView(),
+                        "fileError"=>true,
+                        "fileMessage"=>"Размер изображения должен быть меньше или равен 4МБ"
+
+                    ]
+                );
+            }
             $images = $formImg->get('image')->getData();
 
             if (count($images)>5)
@@ -83,6 +96,21 @@ class ProfileController extends AbstractController
 
             ]
         );
+    }
+    public function getProfile($id)
+    {
+        $profile = $this->entityManager->getRepository(Profile::class)->find($id);
+        if ($profile!=null)
+        {
+            return $this->render("main_page/profileSearch.html.twig",[
+                    "login"=>$_COOKIE['login'],
+                    "fullName"=>$_COOKIE['fullName'],
+                    "profile"=>$profile,
+                ]
+            );
+        } else {
+            $this->redirectToRoute("search");
+        }
     }
 
 }

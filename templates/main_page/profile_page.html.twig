@@ -69,7 +69,7 @@
         }
 
         .topnav a:hover {
-            background-color: #A9A9A9;
+            background-color: #16AF4A;
             color: #292929;
         }
 
@@ -92,11 +92,18 @@
         }
 
         .logoutBtn{
-            margin-top: 24.15em;
-            padding: 10px 20px 10px 10px;
-            text-decoration: none;
-            font-size: 25px;
+            position: absolute;
+            bottom: 0;
+            width: 65px;
+            padding: 1em 0.8em;
+            border-radius: 1rem;
+            border: none;
+            margin-left: 2.2em;
+            margin-bottom: 1em;
+            background-color: #16AF4A;
+            font-size: 18px;
             color: #FFFFFF;
+            text-decoration: none;
         }
 
         .information{
@@ -357,8 +364,8 @@
 
     <div class="topnav">
         <div style=" display: inline;"> <img style="border-radius: 100%; float: right; vertical-align: middle; margin-top: 13.5px; margin-left: 2em; margin-right: 2em;" src="https://i.ibb.co/cxTMfy3/kw-RGub-ZZvcg.jpg" width="50px" ></div>
-        <p align="center" style="color:#ffffff; font-size:25px; display: inline; float: right;">
-            {{ fullName }}</p>
+        <a href="/profile" align="center" style="font-size:25px; display: inline; float: right;">
+            {{ fullName }}</a>
     </div>
 </div>
 

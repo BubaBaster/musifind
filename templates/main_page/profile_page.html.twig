@@ -5,7 +5,58 @@
     <link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Rancho" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet"/>
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.2.0/dist/select2-bootstrap-5-theme.min.css"/>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    {{ encore_entry_link_tags('app') }}
     <style>
+        ::-webkit-scrollbar {
+            width: 15px;
+            height: 15px;
+        }
+
+        ::-webkit-scrollbar-track-piece {
+            background-color: #464646;
+        }
+
+        ::-webkit-scrollbar-thumb:vertical {
+            height: 30px;
+            border-radius: 0.25rem;
+            background-color: #198754;
+
+        }
+
+        .select2-search {
+            background-color: #464646;
+            color: white
+        }
+
+        .select2-search input {
+            background-color: #464646;
+            color: white
+        }
+
+        .select2-results {
+            background-color: #464646;
+            color: white;
+        }
+
+        .select2-container--bootstrap-5 .select2-selection {
+            background-color: #464646;
+            color: white;
+
+            border: 1px solid #646B67;
+        }
+
+        .select2-selection__choice__display {
+            color: white;
+        }
+
         body {
             font-family: 'Roboto', sans-serif;
             background: #363636;
@@ -372,11 +423,37 @@
             font-size: 16px;
         }
 
+        .tools {
+            display: none;
+            opacity: 0
+        }
 
+        .image:hover > .tools {
+            display: block;
+            opacity: 1;
+            animation: fade 370ms linear;
+        }
+
+        @keyframes fade {
+            0%, 100% {
+                opacity: 0
+            }
+            100% {
+                opacity: 1
+            }
+        }
+
+        .sidenavp {
+            color: #FFFFFF;
+            font-size: 25px;
+            display: block;
+            margin: 10px 10px; !important;
+        }
 
     </style>
 </head>
 <body>
+
 
 <div>
     <div class="sidenav">
@@ -388,8 +465,21 @@
     </div>
 
     <div class="topnav">
-        <div style=" display: inline;"> <img style="border-radius: 100%; float: right; vertical-align: middle; margin-top: 13.5px; margin-left: 2em; margin-right: 2em;" src="https://i.ibb.co/cxTMfy3/kw-RGub-ZZvcg.jpg" width="50px" ></div>
-        <a href="/profile" align="center" style="font-size:25px; display: inline; float: right;">
+        <div style=" display: inline;">
+            {% set break = false %}
+            {% for path in profile.getImages %}
+                {% if path.priority == 1 %}
+                    <a href="/profile"><img style="border-radius: 100%; float: right; vertical-align: middle; margin: 10px 20px 10px 10px;"
+                                            src="{{ asset("images/" ~ path.path ~ '') }}" width="60px" height="60px"></a>
+                    {% set break = true %}
+                {% endif %}
+            {% endfor %}
+            {% if break == false %}
+                <a href="/profile"><img style="border-radius: 100%; float: right; vertical-align: middle; margin: 10px 20px 10px 10px;"
+                                        src="{{ asset("images/Profile.png") }}" width="60px" height="60px"></a>
+            {% endif %}
+        </div>
+        <a href="/profile" style="font-size:25px; vertical-align: middle; display: inline; float: right;">
             {{ fullName }}</a>
     </div>
 </div>
@@ -402,13 +492,42 @@
     <p align="center" style="color:#FFFFFF; font-size:20px">
         Галерея</p>
     <div>
-    {% for path in profile.getImages %}
-            <img style="display: inline; margin: auto" width="250px" src="{{ asset("images/" ~ path.path ~ '') }}">
-    {% endfor %}
+
+
+        {% for path in profile.getImages %}
+
+
+            <div class="d-inline-block image" style="background-image: url('{{ asset("images/" ~ path.path ~ '') }}');
+                    background-position: center;
+                    background-repeat: no-repeat;
+                    background-size: cover;
+                    height: 250px; width: 250px">
+
+                {#                <h1 class="text-danger">{{ path.getPriority }}</h1> #}
+                <div class="tools">
+
+                    <button type="button" class="btn btn-outline-danger float-end me-1 mt-1 pt-1 pb-1 ps-2 pe-2"
+                            title="Удалить"
+                            onclick="location.href='/image/delete/{{ path.getId }}'">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16">
+                            <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z"/>
+                        </svg>
+                    </button>
+                    <button type="button" class="btn btn-outline-success float-end me-1 mt-1 pt-1 pb-1 ps-2 pe-2"
+                            title="Сделать основной"
+                            onclick="location.href='/image/avatar/{{ path.getId }}/{{ profile.getId }}'">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16">
+                            <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        {% endfor %}
     </div>
     <center>
         <div style="width: 100%; margin-top: 0.25em; margin-right: auto; margin-left: auto;">
-                <button class="pictureBtn" id="myBtn">Добавить фотографию</button> </form>
+            <button class="pictureBtn btn btn-success" id="myBtn">Добавить фотографию</button>
+            </form>
         </div>
         <div id="myModal" class="modal"
              {% if fileError is defined and fileError==true %}style="display: block"{% endif %}>
@@ -442,9 +561,7 @@
 
         </div>
 
-        <div style="width: 100%; margin-right: auto; margin-left: auto;"> <form action="/profiie">
-                <button class="pictureBtn">Фотография профиля</button> </form>
-        </div>
+
     </center>
     <center>
         <hr>
@@ -465,6 +582,7 @@
     <div class="information" style="padding-top: 0.5em;">
 
         <center>
+
             {{ form_start(form) }}
             {{ form_label(form.genres) }}<br>
 
@@ -500,6 +618,16 @@
         </center>
     </div>
 </div>
+
+{% for label, flashes in app.session.flashbag.all %}
+    {% for flash in flashes %}
+        {% if ( label == 'genres' ) %}
+            <script>
+                document.getElementById("genreDiv").scrollIntoView();
+            </script>
+        {% endif %}
+    {% endfor %}
+{% endfor %}
 <script type="text/javascript">
     var modal = document.getElementById('myModal');
 
@@ -525,6 +653,24 @@
             modal.style.display = "none";
         }
     }
+
+</script>
+<script type="text/javascript">
+
+    $('.js-example-basic-single').select2({
+        "multiple": "multiple",
+        dropdownCssClass: 'bigdrop',
+        'theme': 'bootstrap-5',
+        "language": {
+            "noResults": function () {
+                return "Нет результатов";
+            }
+        }
+    });
+
+    {% for genre in profile.getFavouriteGenres %}
+    $("select option[value='{{ genre.getGenre.getId }}']").remove()
+    {% endfor %}
 
 </script>
 

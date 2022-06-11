@@ -1,6 +1,7 @@
 <?php
 namespace App\Controller;
 
+use App\Entity\FavouriteGenres;
 use App\Entity\Image;
 use App\Entity\Profile;
 use App\Entity\Users;
@@ -33,6 +34,21 @@ class ProfileController extends AbstractController
             $profile = $form->getData();
             $this->entityManager->persist($profile);
             $this->entityManager->flush();
+            if ($form->get('genres')->getData() != null)
+            {
+                $genres = $form->get('genres')->getData();
+                foreach ($genres as $genre)
+                {
+                    $favouriteGenre = new FavouriteGenres();
+                    $favouriteGenre->setIdProfile($profile);
+                    $favouriteGenre->setGenre($genre);
+                    $profile->addFavouriteGenre($favouriteGenre);
+                    $this->entityManager->persist($favouriteGenre);
+                }
+                $this->entityManager->flush();
+                return $this->redirect($request->getUri());
+
+            }
         }
 
 
@@ -75,6 +91,7 @@ class ProfileController extends AbstractController
                 $fileName = md5(uniqid()).'.'.$image->guessExtension();
                 $img->setProfile($profile);
                 $img->setPath($fileName);
+                $img->setPriority(0);
 
                 $image->move(
                     $this->getParameter('images_directory'),
@@ -99,6 +116,9 @@ class ProfileController extends AbstractController
     }
     public function getProfile($id)
     {
+        $myUser = $this->entityManager->getRepository(Users::class)->findOneBy([
+            'login'=>$_COOKIE['login']
+        ]);
         $profile = $this->entityManager->getRepository(Profile::class)->find($id);
         if ($profile!=null)
         {
@@ -106,6 +126,7 @@ class ProfileController extends AbstractController
                     "login"=>$_COOKIE['login'],
                     "fullName"=>$_COOKIE['fullName'],
                     "profile"=>$profile,
+                    "user"=>$myUser
                 ]
             );
         } else {

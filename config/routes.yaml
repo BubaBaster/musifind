@@ -18,6 +18,20 @@ home_page:
     path: /home
     controller: App\Controller\MainPageController::index
 
+redirToMain:
+    path: /
+    controller: App\Controller\MainPageController::redirectToMain
+
+delete_image:
+    path: /image/delete/{id}
+    controller: App\Controller\ImageController::delete
+delete_fav_genre:
+    path: /genre/delete/{id}
+    controller: App\Controller\FavouriteGenresController::delete
+avatar:
+    path: /image/avatar/{imageId}/{profileId}
+    controller: App\Controller\ImageController::avatar
+
 exit:
     path: /exit
     controller: App\Controller\ExitController::index

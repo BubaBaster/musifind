@@ -198,9 +198,22 @@
     </div>
 
     <div class="topnav">
-        <div style=" display: inline;"> <img style="border-radius: 100%; float: right; vertical-align: middle; margin-top: 13.5px; margin-left: 2em; margin-right: 2em;" src="https://i.ibb.co/cxTMfy3/kw-RGub-ZZvcg.jpg" width="50px" ></div>
-        <p align="center" style="color:#ffffff; font-size:25px; display: inline; float: right;">
-            {{ fullName }}</p>
+        <div style=" display: inline;">
+            {% set break = false %}
+            {% for path in profile.getImages %}
+                {% if path.priority == 1 %}
+                    <a href="/profile"><img style="border-radius: 100%; float: right; vertical-align: middle; margin: 10px 20px 10px 10px;"
+                                            src="{{ asset("images/" ~ path.path ~ '') }}" width="60px" height="60px"></a>
+                    {% set break = true %}
+                {% endif %}
+            {% endfor %}
+            {% if break == false %}
+                <a href="/profile"><img style="border-radius: 100%; float: right; vertical-align: middle; margin: 10px 20px 10px 10px;"
+                                        src="{{ asset("images/Profile.png") }}" width="60px" height="60px"></a>
+            {% endif %}
+        </div>
+        <a href="/profile" style="font-size:25px; vertical-align: middle; display: inline; float: right;">
+            {{ fullName }}</a>
     </div>
 </div>
 

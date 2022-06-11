@@ -56,6 +56,11 @@ class MainPageController extends AbstractController
              return false;
      }
 
+     public function redirectToMain(): Response
+     {
+        return $this->redirectToRoute("home_page");
+     }
+
 
 
 

@@ -424,7 +424,12 @@
         Галерея</p>
     <div>
         {% for path in profile.getImages %}
-            <img style="display: inline; margin: auto" width="250px" src="{{ asset("images/" ~ path.path ~ '') }}">
+            <div class="d-inline-block image" style="background-image: url('{{ asset("images/" ~ path.path ~ '') }}');
+                    background-position: center;
+                    background-repeat: no-repeat;
+                    background-size: cover;
+                    height: 250px; width: 250px">
+            </div>
         {% endfor %}
     </div>
     <center>

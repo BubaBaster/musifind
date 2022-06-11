@@ -21,6 +21,9 @@ class Image
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private $path;
 
+    #[ORM\Column(type: 'integer', nullable: true)]
+    private $priority;
+
 
     public function getId(): ?int
     {
@@ -47,6 +50,18 @@ class Image
     public function setPath(?string $path): self
     {
         $this->path = $path;
+
+        return $this;
+    }
+
+    public function getPriority(): ?int
+    {
+        return $this->priority;
+    }
+
+    public function setPriority(?int $priority): self
+    {
+        $this->priority = $priority;
 
         return $this;
     }

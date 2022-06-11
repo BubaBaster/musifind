@@ -33,9 +33,13 @@ class Profile
     #[ORM\OneToMany(mappedBy: 'profile', targetEntity: Image::class)]
     private $images;
 
+    #[ORM\OneToMany(mappedBy: 'idProfile', targetEntity: FavouriteGenres::class, orphanRemoval: true)]
+    private $favouriteGenres;
+
     public function __construct()
     {
         $this->images = new ArrayCollection();
+        $this->favouriteGenres = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -127,6 +131,36 @@ class Profile
             // set the owning side to null (unless already changed)
             if ($image->getProfile() === $this) {
                 $image->setProfile(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, FavouriteGenres>
+     */
+    public function getFavouriteGenres(): Collection
+    {
+        return $this->favouriteGenres;
+    }
+
+    public function addFavouriteGenre(FavouriteGenres $favouriteGenre): self
+    {
+        if (!$this->favouriteGenres->contains($favouriteGenre)) {
+            $this->favouriteGenres[] = $favouriteGenre;
+            $favouriteGenre->setIdProfile($this);
+        }
+
+        return $this;
+    }
+
+    public function removeFavouriteGenre(FavouriteGenres $favouriteGenre): self
+    {
+        if ($this->favouriteGenres->removeElement($favouriteGenre)) {
+            // set the owning side to null (unless already changed)
+            if ($favouriteGenre->getIdProfile() === $this) {
+                $favouriteGenre->setIdProfile(null);
             }
         }
 

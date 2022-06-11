@@ -16,12 +16,21 @@ class SearchController extends AbstractController
     public function index(): Response
     {
 
-        $users = new Users();
+        $user = $this->entityManager->getRepository(Users::class)->findOneBy([
+            "login"=>$_COOKIE['login']
+        ]);
+
+        $profile = $user->getProfile();
+        $userGenres = $profile->getFavouriteGenres();
         $users = $this->entityManager->getRepository(Users::class)->findAll();
         return $this->render("main_page/search_page.html.twig",[
                 "login"=>$_COOKIE['login'],
                 "fullName"=>$_COOKIE['fullName'],
                 "users"=>$users,
+                "profile"=>$profile,
+                "usersHigh"=>$usersHigh,
+                "usersMid"=>$usersMid,
+                "usersLow"=>$usersLow,
 
             ]
         );

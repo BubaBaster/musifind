@@ -1,14 +1,16 @@
 <!DOCTYPE html>
-<html  lang="ru">
+<html lang="ru">
 <head>
     <title>Профиль</title>
     <link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Rancho" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <style>
         body {
             font-family: 'Roboto', sans-serif;
             background: #363636;
         }
+
         .sidenav {
             height: 100%;
             width: 200px;
@@ -29,7 +31,7 @@
         }
 
         .sidenav a:hover {
-            background-color: #16AF4A;
+            background-color: #198754;
             color: #292929;
         }
 
@@ -40,13 +42,19 @@
 
         .main {
             margin-left: 200px;
-            font-size: 25px;
+            font-size: 20px;
             color: #FFFFFF;
+            align: center;
         }
 
         @media screen and (max-height: 450px) {
-            .sidenav {padding-top: 15px;}
-            .sidenav a {font-size: 18px;}
+            .sidenav {
+                padding-top: 15px;
+            }
+
+            .sidenav a {
+                font-size: 18px;
+            }
         }
 
         body {
@@ -56,57 +64,60 @@
 
         .topnav {
             margin-left: 200px;
-            height: 79px;
+            height: 80px;
             overflow: hidden;
             background-color: #2C2C2C;
         }
 
         .topnav a {
             color: #FFFFFF;
-            padding: 25px;
+            padding: 21px 20px;
             text-decoration: none;
             font-size: 25px;
         }
 
         .topnav a:hover {
-            background-color: #16AF4A;
+            background-color: #198754;
             color: #292929;
         }
 
         .topnav a.active {
-            background-color: #16AF4A;
+            background-color: #198754;
             color: white;
         }
 
         hr {
             border: none;
-            border-bottom: 2px solid #646B67;
-            color: #646B67;
+            border-bottom: 2px solid #464646;
+            color: #464646;
             height: 2px;
-            align: center;
             width: 85%;
+            opacity: 1;
+        !important;
+            margin: 0.5em 0;
+        !important;
         }
 
         .round {
             border-radius: 100px;
         }
 
-        .logoutBtn{
+        .logoutBtn {
             position: absolute;
             bottom: 0;
-            width: 65px;
-            padding: 1em 0.8em;
+            width: 95px;
+            padding: 10px 10px 10px 10px !important;
             border-radius: 1rem;
             border: none;
             margin-left: 2.2em;
             margin-bottom: 1em;
-            background-color: #16AF4A;
+            background-color: #198754;
             font-size: 18px;
             color: #FFFFFF;
             text-decoration: none;
         }
 
-        .information{
+        .information {
             width: 45%;
             height: 579px;
             margin-left: auto;
@@ -115,7 +126,7 @@
             background: #292929;
         }
 
-        select{
+        select {
             width: 89%;
             border: none;
             border-radius: 0.25rem;
@@ -136,29 +147,14 @@
         /*    color: #FFFFFF*/
         /*}*/
 
-        .submitBtn{
+        .submitBtn {
             color: white;
-            background: #16AF4A;
+            background: #198754;
             border-radius: 1rem;
             padding: 0.5em;
             font-size: 20px;
             border: none;
             margin-bottom: 1em;
-        }
-
-        .pictureBtn{
-            color: white;
-            background: #16AF4A;
-            border-radius: 1rem;
-            padding: 0.5em;
-            font-size: 16px;
-            border: none;
-            cursor: pointer;
-            margin-bottom: 1em;
-        }
-
-        .pictureBtn:hover{
-            color: #292929;
         }
 
         .modal {
@@ -171,19 +167,19 @@
             width: 100%; /* Full width */
             height: 100%; /* Full height */
             overflow: auto; /* Enable scroll if needed */
-            background-color: rgb(0,0,0); /* Fallback color */
-            background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+            background-color: rgb(0, 0, 0); /* Fallback color */
+            background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
         }
 
 
         .modal-content {
             position: relative;
-            background-color: #E1BEE7;
+            background-color: #FFFFFF;
             margin: auto;
             padding: 0;
             border: none;
             width: 50%;
-            box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
             -webkit-animation-name: animatetop;
             -webkit-animation-duration: 0.4s;
             animation-name: animatetop;
@@ -192,13 +188,25 @@
 
 
         @-webkit-keyframes animatetop {
-            from {top:-300px; opacity:0}
-            to {top:0; opacity:1}
+            from {
+                top: -300px;
+                opacity: 0
+            }
+            to {
+                top: 0;
+                opacity: 1
+            }
         }
 
         @keyframes animatetop {
-            from {top:-300px; opacity:0}
-            to {top:0; opacity:1}
+            from {
+                top: -300px;
+                opacity: 0
+            }
+            to {
+                top: 0;
+                opacity: 1
+            }
         }
 
 
@@ -218,7 +226,7 @@
 
         .modal-header {
             padding: 2px 16px;
-            background-color: #16AF4A;
+            background-color: #198754;
             color: white;
         }
 
@@ -229,7 +237,7 @@
 
         .modal-footer {
             padding: 2px 16px;
-            background-color: #16AF4A;
+            background-color: #198754;
             color: white;
         }
 
@@ -271,7 +279,7 @@
             width: 100%;
             max-width: 290px;
             height: 60px;
-            background: #16AF4A;
+            background: #198754;
             color: #fff;
             font-size: 1.125rem;
             font-weight: 700;
@@ -289,40 +297,57 @@
             margin: 0 auto;
         }
 
-        .loginBtn{
+        .loginBtn {
             color: white;
             padding: 0.8em 0.8em;
             margin-top: 1em;
             margin-bottom: 1em;
-            background: #16AF4A ;
+            background: #198754;
             border-radius: 1rem;
             border: none;
             width: 15%;
             margin-right: auto;
             margin-left: auto;
-            display:inline-block;
+            display: inline-block;
         }
 
-        .saveBtn{
+        .saveBtn {
             color: white;
             padding: 0.8em 0.8em;
             margin-top: 1em;
             margin-bottom: 1em;
-            background: #16AF4A ;
+            background: #198754;
             border-radius: 1rem;
             border: none;
-            width: 30%;
             margin-right: auto;
             margin-left: auto;
-            display:inline-block;
+            display: inline-block;
             font-size: 16px;
         }
 
-        .saveBtn:hover{
+        .saveBtn:hover {
             color: #292929;
         }
 
-        .infoInput{
+        .pictureBtn {
+            color: white;
+            padding: 0.8em 0.8em;
+            margin-top: 1em;
+            margin-bottom: 1em;
+            background: #198754;
+            border-radius: 1rem;
+            border: none;
+            margin-right: auto;
+            margin-left: auto;
+            display: inline-block;
+            font-size: 16px;
+        }
+
+        .pictureBtn:hover {
+            color: #292929;
+        }
+
+        .infoInput {
             width: 85%;
             border: none;
             border-radius: 0.25rem;
@@ -335,7 +360,7 @@
             text-indent: 11px;
         }
 
-        .infoInputSex{
+        .infoInputSex {
             width: 85%;
             border: none;
             border-radius: 0.25rem;
@@ -355,11 +380,11 @@
 
 <div>
     <div class="sidenav">
-        <p  align="center" style="color:#FFFFFF; font-size:25px">
+        <p class="sidenavp" align="center" style="font-family: Rancho; font-size: 40px">
             Musifind</p>
-        <a href="/profile" style="background-color: #16AF4A; color: #292929">Профиль</a>
+        <a href="/profile" style="background-color: #198754; color: #292929">Профиль</a>
         <a href="/search">Поиск</a>
-            <a href="/exit" class="logoutBtn"/>Выход</a>
+        <a href="/exit" class="logoutBtn"/>Выход</a>
     </div>
 
     <div class="topnav">
@@ -371,7 +396,9 @@
 
 
 <div class="main">
-    <hr>
+    <center>
+        <hr>
+    </center>
     <p align="center" style="color:#FFFFFF; font-size:20px">
         Галерея</p>
     <div>
@@ -383,7 +410,8 @@
         <div style="width: 100%; margin-top: 0.25em; margin-right: auto; margin-left: auto;">
                 <button class="pictureBtn" id="myBtn">Добавить фотографию</button> </form>
         </div>
-        <div id="myModal" class="modal" {% if fileError is defined and fileError==true %}style="display: block"{% endif %}>
+        <div id="myModal" class="modal"
+             {% if fileError is defined and fileError==true %}style="display: block"{% endif %}>
 
 
             <div class="modal-content">
@@ -399,7 +427,9 @@
                     <div class="input__wrapper">
                         {{ form_widget(formImg.image) }}
                         <label for="image_image" class="input__file-button">
-                            <span class="input__file-icon-wrapper"><img class="input__file-icon" src="{{ asset("build/images/add.svg") }}" alt="Выбрать файл" width="25"></span>
+                            <span class="input__file-icon-wrapper"><img class="input__file-icon"
+                                                                        src="{{ asset("build/images/add.svg") }}"
+                                                                        alt="Выбрать файл" width="25"></span>
                             <span class="input__file-button-text">Выберите файл</span>
                         </label>
 
@@ -416,27 +446,56 @@
                 <button class="pictureBtn">Фотография профиля</button> </form>
         </div>
     </center>
-    <hr>
+    <center>
+        <hr>
+    </center>
     <p align="center" style="color:#FFFFFF; font-size:20px">
         О себе</p>
 
     <div style="font-size: 16px">
-    <center><p style="font-size: 16px">{{ profile.about|raw}}</p></center>
+        <center><p style="font-size: 16px">{{ profile.about|raw }}</p></center>
     </div>
-    <hr>
+    <center>
+        <hr>
+    </center>
 
     <p align="center" style="color:#FFFFFF; font-size:20px">
         Личная информация</p>
-
 
     <div class="information" style="padding-top: 0.5em;">
 
         <center>
             {{ form_start(form) }}
-            {{ form_label(form.sex) }}
-            {{ form_errors(form.sex) }}
-            {{ form_widget(form.sex) }}
-            {{ form_help(form.sex) }}
+            {{ form_label(form.genres) }}<br>
+
+            {{ form_widget(form.genres) }}
+
+            <div class="overflow-auto fs-6 text-start mt-2 mb-1 " id="genreDiv" style="width:85%;max-height: 200px;">
+                {% for genre in profile.getFavouriteGenres %}
+                    <div class="d-block">
+                        <div class="d-block mb-3">
+                            <div class="pt-2 d-inline-block">{{ genre.getGenre.genre }}</div>
+                            <button type="button" class="btn btn-outline-danger float-end me-1 mt-1 pt-1 pb-1 ps-2 pe-2"
+                                    title="Удалить"
+                                    onclick="location.href='/genre/delete/{{ genre.getId }}'">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                     class="bi bi-trash" viewBox="0 0 16 16">
+                                    <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
+                                    <path fill-rule="evenodd"
+                                          d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
+                                </svg>
+                            </button>
+                        </div>
+
+                    </div>
+                {% endfor %}
+            </div>
+            {{ form_label(form.sex) }}<br>
+            {{ form_widget(form.sex) }}<br>
+            {{ form_label(form.age) }}<br>
+            {{ form_widget(form.age) }}<br>
+            {{ form_label(form.city) }}<br>
+            {{ form_widget(form.city) }}
             {{ form_end(form) }}
         </center>
     </div>
@@ -451,17 +510,17 @@
     var span = document.getElementsByClassName("close")[0];
 
 
-    btn.onclick = function() {
+    btn.onclick = function () {
         modal.style.display = "block";
     }
 
 
-    span.onclick = function() {
+    span.onclick = function () {
         modal.style.display = "none";
     }
 
 
-    window.onclick = function(event) {
+    window.onclick = function (event) {
         if (event.target == modal) {
             modal.style.display = "none";
         }

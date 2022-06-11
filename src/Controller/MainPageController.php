@@ -15,8 +15,17 @@ class MainPageController extends AbstractController
         $this->entityManager = $entityManager;
     }
 
+
+
+
      public function index(Request $request): Response
      {
+
+         $user = $this->entityManager->getRepository(Users::class)->findOneBy([
+             "login"=>$_COOKIE['login']
+         ]);
+         $profile = $user->getProfile();
+
          if($this->checkAuth() == false)
          {
              return $this->redirectToRoute("auth");
@@ -24,7 +33,7 @@ class MainPageController extends AbstractController
         return $this->render("main_page/home_page.html.twig",[
                 "login"=>$_COOKIE['login'],
                 "fullName"=>$_COOKIE['fullName'],
-
+                "profile"=>$profile,
         ]
         );
      }

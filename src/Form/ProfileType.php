@@ -18,54 +18,67 @@ class ProfileType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('sex',ChoiceType::class,[
-                "label"=>false,
-                "required"=>false,
-                "choices"=>[
-                    "Не указано"=>"Не указано",
-                    "Мужской"=>"Мужской",
-                    "Женский"=>"Женский",
+            ->add('genres', EntityType::class,
+                [
+                    'multiple' => true,
+                    "label" => "Любимые жанры",
+                    "required" => false,
+                    'mapped' => false,
+                    'class' => Genres::class,
+                    'attr' => [
+                        'class' => 'js-example-basic-single col-12 d-block form-control',
+                        "style" => "width: 85%",
+                    ]
+                ]
+            )
+            ->add('sex', ChoiceType::class, [
+                "label" => "Пол",
+                "required" => false,
+                "choices" => [
+                    "Не указано" => "Не указано",
+                    "Мужской" => "Мужской",
+                    "Женский" => "Женский",
                 ],
-                "attr"=>[
-                    "class"=>"infoInputSex",
-                    "placeholder"=>"Пол"
+                "attr" => [
+                    "class" => "infoInputSex",
+                    "placeholder" => "Пол"
                 ]
             ])
-            ->add("age",IntegerType::class,[
-                "label"=>false,
-                "required"=>false,
-                "attr"=>[
-                    "class"=>"infoInput",
-                    "placeholder"=>"Возраст"
+            ->add("age", IntegerType::class, [
+                "label" => "Возраст",
+                "required" => false,
+                "attr" => [
+                    "class" => "infoInput",
+                    "placeholder" => "Возраст"
                 ]
             ])
-            ->add('city',TextType::class,[
-                "label"=>false,
-                "required"=>false,
-                "attr"=>[
-                    "class"=>"infoInput",
-                    "placeholder"=>"Город"
+            ->add('city', TextType::class, [
+                "label" => "Город",
+                "required" => false,
+                "attr" => [
+                    "class" => "infoInput",
+                    "placeholder" => "Город"
                 ]
             ])
-            ->add('about',CKEditorType::class,[
-                "required"=>false,
-                "label"=>false,
-                "config"=>[
-                    "uiColor"=>"#000000",
-                    "language"=>"ru",
+            ->add('about', CKEditorType::class, [
+                "required" => false,
+                "label" => "О себе",
+                "config" => [
+                    "uiColor" => "#000000",
+                    "language" => "ru",
+                    "removeButtons" => 'Source,Save,NewPage,Preview,Templates,Cut,Copy,Paste,PasteText,PasteFromWord,Print,SpellChecker,Scayt,Undo,Redo,Find,Replace,SelectAll,RemoveFormat,Form,Checkbox,Radio,TextField,Textarea,Select,Button,ImageButton,HiddenField,Bold,Italic,Underline,Strike,Subscript,Superscript,NumberedList,BulletedList,Outdent,Indent,Blockquote,JustifyLeft,JustifyCenter,JustifyRight,JustifyBlock,Link,Unlink,Anchor,Image,Flash,Table,HorizontalRule,Smiley,SpecialChar,PageBreak,TextColor,BGColor,Maximize,ShowBlocks,About',
                 ],
-                "attr"=>[
-                    "placeholder"=>"Расскажите о себе"
+                "attr" => [
+                    "placeholder" => "Расскажите о себе"
                 ]
 
             ])
-            ->add('submit',SubmitType::class,[
-                "label"=>"Сохранить изменения",
-                "attr"=>[
-                    "class"=>"saveBtn",
+            ->add('submit', SubmitType::class, [
+                "label" => "Сохранить изменения",
+                "attr" => [
+                    "class" => "saveBtn btn btn-success",
                 ]
-            ])
-        ;
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void

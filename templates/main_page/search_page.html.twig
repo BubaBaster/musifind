@@ -12,12 +12,29 @@
     <script src="https://unpkg.com/swiper@8/swiper-bundle.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet"/>
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.2.0/dist/select2-bootstrap-5-theme.min.css"/>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
     {{ encore_entry_link_tags('app') }}
     <script>
 
     </script>
     <style>
+        .select2-container--bootstrap-5.select2-container--focus .select2-selection, .select2-container--bootstrap-5.select2-container--open .select2-selection
+        {
+            border-color: transparent;
+            box-shadow: none;
+        }
+        .select2-search select2-search--dropdown
+        {
+            border-color: transparent;
+            box-shadow: none;
+        }
+
 
         body {
             font-family: 'Roboto', sans-serif;
@@ -269,6 +286,57 @@
             background-color: #198754;
 
         }
+        .select2-search {
+            background-color: #464646;
+            color: white
+        }
+
+        .select2-search input {
+            background-color: #464646;
+            color: white
+        }
+
+        .select2-results {
+            background-color: #464646;
+            color: white;
+        }
+
+        .select2-container--bootstrap-5 .select2-selection {
+            background-color: #464646;
+            color: white;
+
+            border: 1px solid #646B67;
+        }
+
+        .select2-search__field{
+            background-color: #464646 !important;
+            color: white !important;
+        }
+        .select2-selection__rendered{
+            color: white !important;
+        }
+
+        .select2-selection__choice__display {
+            color: white;
+        }
+        select {
+            width: 20%;
+            border: none;
+            border-radius: 0.25rem;
+            padding: 0.375rem 0.5rem;
+            background: #464646;
+            color: #FFFFFF;
+        }
+
+        .select2-container--bootstrap-5{
+            width: 20% !important;
+
+        }
+
+        .someBtn:hover {
+            color: #292929;
+        }
+
 
 
 
@@ -290,14 +358,12 @@
             {% set break = false %}
             {% for path in profile.getImages %}
                 {% if path.priority == 1 %}
-                    <a href="/profile"><img style="border-radius: 100%; float: right; vertical-align: middle; margin: 10px 20px 10px 10px;"
-                         src="{{ asset("images/" ~ path.path ~ '') }}" width="60px" height="60px"></a>
+                    <img style="border-radius: 100%; float: right; vertical-align: middle; margin: 10px 20px 10px 10px;" src="{{ asset("images/" ~ path.path ~ '') }}" width="60px" height="60px">
                     {% set break = true %}
                 {% endif %}
             {% endfor %}
             {% if break == false %}
-                <a href="/profile"><img style="border-radius: 100%; float: right; vertical-align: middle; margin: 10px 20px 10px 10px;"
-                        src="{{ asset("images/Profile.png") }}" width="60px" height="60px"></a>
+                <img style="border-radius: 100%; float: right; vertical-align: middle; margin: 10px 20px 10px 10px;" src="{{ asset("images/Profile.png") }}" width="60px" height="60px">
             {% endif %}
         </div>
         <a href="/profile" style="font-size:25px; vertical-align: middle; display: inline; float: right;">
@@ -306,16 +372,24 @@
 </div>
 
 <div class="main">
-    <center><hr></center>
-    <p align="center" style="color:#FFFFFF; font-size:20px">
-        Предложения Musifind</p>
-    <center><hr></center>
+    <center><hr>
+        <p style="color:#FFFFFF; font-size:20px">
+            Поиск по жанрам</p>
+    {{ form_start(form) }}
+    {{ form_widget(form.genre) }}
+    {{ form_row(form.submit) }}
+    {{ form_end(form) }}
+    {% for message in app.flashes('error') %}
+        {{ message }}
+    {% endfor %}
+    {% if search == true %}
+        <br>
 
-    <p align="left" style="color:#FFFFFF; font-size:20px; margin-left: 1em;">
-        Высокая совместимость</p>
+    </center>
     <div class="swiper mySwiper">
         <div class="swiper-wrapper">
-            {% for user in usersHigh %}
+
+            {% for user in correctUsers %}
                 {% if user.login != login %}
                     <div class="swiper-slide" url-val="/profile/{{ user.id }}"
                          onclick="location.href('/profile/{{ user.id }}')">
@@ -325,7 +399,7 @@
                                 <img href="/profile/{{ user.id }}" onclick="location.href('/profile/{{ user.id }}')"
                                      src="images/{{ image.getPath }}" class="swiper-lazy">
                                 <a class="title " href="/profile/{{ user.id }}" data-swiper-parallax="-100">
-                                    <button class="btn btn-success">{{ user.login }}</button>
+                                    <button class="someBtn btn btn-success">{{ user.login }}</button>
                                 </a>
                                 {% set noAvatar = false %}
                             {% endif %}
@@ -336,7 +410,7 @@
                                 <img href="/profile/{{ user.id }}" onclick="location.href('/profile/{{ user.id }}')"
                                      src="images/{{ image.getPath }}" class="swiper-lazy">
                                 <a class="title " href="/profile/{{ user.id }}" data-swiper-parallax="-100">
-                                    <button class="btn btn-success">{{ user.login }}</button>
+                                    <button class="someBtn btn btn-success">{{ user.login }}</button>
                                 </a>
                             {% endif %}
                             {% set i = i + 1 %}
@@ -345,7 +419,61 @@
                             <img href="/profile/{{ user.id }}" onclick="location.href('/profile/{{ user.id }}')"
                                  src="{{ asset("images/Profile.png") }}" class="swiper-lazy">
                             <a class="title " href="/profile/{{ user.id }}" data-swiper-parallax="-100">
-                                <button class="btn btn-success">{{ user.login }}</button>
+                                <button class="someBtn btn btn-success">{{ user.login }}</button>
+                            </a>
+                        {% endif %}
+
+                        <div class="swiper-lazy-preloader swiper-lazy-preloader-white"></div>
+                    </div>
+                {% endif %}
+
+            {% endfor %}
+        </div>
+        <div class="swiper-pagination"></div>
+        <div class="swiper-button-prev"></div>
+        <div class="swiper-button-next"></div>
+    </div>
+    {% endif %}
+    {% if search == false %}
+
+        <center><hr></center>
+        <p style="color:#FFFFFF; font-size:20px">
+            Высокая совместимость</p>
+        <center><hr></center>
+    <div class="swiper mySwiper">
+        <div class="swiper-wrapper">
+
+            {% for user in usersHigh %}
+                {% if user.login != login %}
+                    <div class="swiper-slide" url-val="/profile/{{ user.id }}"
+                         onclick="location.href('/profile/{{ user.id }}')">
+                        {% set noAvatar = true %}
+                        {% for image in user.profile.images %}
+                            {% if image.priority == 1 %}
+                                <img href="/profile/{{ user.id }}" onclick="location.href('/profile/{{ user.id }}')"
+                                     src="images/{{ image.getPath }}" class="swiper-lazy">
+                                <a class="title " href="/profile/{{ user.id }}" data-swiper-parallax="-100">
+                                    <button class="someBtn btn btn-success">{{ user.login }}</button>
+                                </a>
+                                {% set noAvatar = false %}
+                            {% endif %}
+                        {% endfor %}
+                        {% for image in user.profile.images %}
+                            {% set i = 0 %}
+                            {% if noAvatar == true and i == 0 %}
+                                <img href="/profile/{{ user.id }}" onclick="location.href('/profile/{{ user.id }}')"
+                                     src="images/{{ image.getPath }}" class="swiper-lazy">
+                                <a class="title " href="/profile/{{ user.id }}" data-swiper-parallax="-100">
+                                    <button class="someBtn btn btn-success">{{ user.login }}</button>
+                                </a>
+                            {% endif %}
+                            {% set i = i + 1 %}
+                        {% endfor %}
+                        {% if user.profile.images is empty %}
+                            <img href="/profile/{{ user.id }}" onclick="location.href('/profile/{{ user.id }}')"
+                                 src="{{ asset("images/Profile.png") }}" class="swiper-lazy">
+                            <a class="title " href="/profile/{{ user.id }}" data-swiper-parallax="-100">
+                                <button class="someBtn btn btn-success">{{ user.login }}</button>
                             </a>
                         {% endif %}
 
@@ -364,8 +492,10 @@
 
 
 
-    <p align="left" style="color:#FFFFFF; font-size:20px; margin-left: 1em;">
-        Средняя совместимость</p>
+        <center><hr></center>
+        <p style="color:#FFFFFF; font-size:20px">
+            Средняя совместимость</p>
+        <center><hr></center>
     <div class="swiper mySwiper">
         <div class="swiper-wrapper">
             {% for user in usersMid %}
@@ -378,7 +508,7 @@
                                 <img href="/profile/{{ user.id }}" onclick="location.href('/profile/{{ user.id }}')"
                                      src="images/{{ image.getPath }}" class="swiper-lazy">
                                 <a class="title " href="/profile/{{ user.id }}" data-swiper-parallax="-100">
-                                    <button class="btn btn-success">{{ user.login }}</button>
+                                    <button class="someBtn btn btn-success">{{ user.login }}</button>
                                 </a>
                                 {% set noAvatar = false %}
                             {% endif %}
@@ -389,7 +519,7 @@
                                 <img href="/profile/{{ user.id }}" onclick="location.href('/profile/{{ user.id }}')"
                                      src="images/{{ image.getPath }}" class="swiper-lazy">
                                 <a class="title " href="/profile/{{ user.id }}" data-swiper-parallax="-100">
-                                    <button class="btn btn-success">{{ user.login }}</button>
+                                    <button class="someBtn btn btn-success">{{ user.login }}</button>
                                 </a>
                             {% endif %}
                             {% set i = i + 1 %}
@@ -398,7 +528,7 @@
                             <img href="/profile/{{ user.id }}" onclick="location.href('/profile/{{ user.id }}')"
                                  src="{{ asset("images/Profile.png") }}" class="swiper-lazy">
                             <a class="title " href="/profile/{{ user.id }}" data-swiper-parallax="-100">
-                                <button class="btn btn-success">{{ user.login }}</button>
+                                <button class="someBtn btn btn-success">{{ user.login }}</button>
                             </a>
                         {% endif %}
                         <div class="swiper-lazy-preloader swiper-lazy-preloader-white"></div>
@@ -413,8 +543,10 @@
         <div class="swiper-button-next"></div>
     </div>
 
-    <p align="left" style="color:#FFFFFF; font-size:20px; margin-left: 1em;">
-        Низкая совместимость</p>
+        <center><hr></center>
+        <p style="color:#FFFFFF; font-size:20px">
+            Низкая совместимость</p>
+        <center><hr></center>
 
     <div class="swiper mySwiper mb-5">
         <div class="swiper-wrapper">
@@ -428,7 +560,7 @@
                                 <img href="/profile/{{ user.id }}" onclick="location.href('/profile/{{ user.id }}')"
                                      src="images/{{ image.getPath }}" class="swiper-lazy">
                                 <a class="title " href="/profile/{{ user.id }}" data-swiper-parallax="-100">
-                                    <button class="btn btn-success">{{ user.login }}</button>
+                                    <button class="someBtn btn btn-success">{{ user.login }}</button>
                                 </a>
 
                                 {% set noAvatar = false %}
@@ -440,7 +572,7 @@
                                 <img href="/profile/{{ user.id }}" onclick="location.href('/profile/{{ user.id }}')"
                                      src="images/{{ image.getPath }}" class="swiper-lazy">
                                 <a class="title " href="/profile/{{ user.id }}" data-swiper-parallax="-100">
-                                    <button class="btn btn-success">{{ user.login }}</button>
+                                    <button class="someBtn btn btn-success">{{ user.login }}</button>
                                 </a>
                             {% endif %}
                             {% set i = i + 1 %}
@@ -449,7 +581,7 @@
                             <img href="/profile/{{ user.id }}" onclick="location.href('/profile/{{ user.id }}')"
                                  src="{{ asset("images/Profile.png") }}" class="swiper-lazy">
                             <a class="title " href="/profile/{{ user.id }}" data-swiper-parallax="-100">
-                                <button class="btn btn-success">{{ user.login }}</button>
+                                <button class="someBtn btn btn-success">{{ user.login }}</button>
                             </a>
                         {% endif %}
                         <div class="swiper-lazy-preloader swiper-lazy-preloader-white"></div>
@@ -463,21 +595,15 @@
         <div class="swiper-button-prev"></div>
         <div class="swiper-button-next"></div>
     </div>
-{#    <div class="bg-success">#}
-{#        {% for userHigh in usersHigh %}#}
-{#        {{ userHigh.login }}#}
-{#        {% endfor %}#}
-{#    </div>#}
-{#    <div class="bg-warning">#}
-{#        {% for userMid in usersMid %}#}
-{#            {{ userMid.login }}#}
-{#        {% endfor %}#}
-{#    </div>#}
-{#    <div class="bg-danger">#}
-{#        {% for userLow in usersLow %}#}
-{#            {{ userLow.login }}#}
-{#        {% endfor %}#}
-{#    </div>#}
+    {% endif %}
+    {% if search == true %}
+    <center>
+    <a href="/search">
+        <button class="someBtn btn btn-outline-danger mt-2" >Назад</button>
+    </a>
+    </center>
+    {% endif %}
+
 </div>
 
 <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
@@ -504,6 +630,19 @@
             nextEl: '.swiper-button-next',
             prevEl: '.swiper-button-prev',
         },
+    });
+</script>
+<script type="text/javascript">
+
+    $('.js-example-basic-single').select2({
+        dropdownCssClass: 'bigdrop',
+        containerCssClass : "shadow-none",
+        'theme': 'bootstrap-5',
+        "language": {
+            "noResults": function () {
+                return "Нет результатов";
+            }
+        }
     });
 </script>
 

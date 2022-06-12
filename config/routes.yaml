@@ -47,3 +47,12 @@ profile_get:
 search:
     path: /search
     controller: App\Controller\SearchController::index
+search_by_genre:
+    path: /searchBy/{id}
+    controller: App\Controller\SearchController::search
+like:
+    path: /like/{id}
+    controller: App\Controller\LikeController::index
+like_delete:
+    path: /like/delete/{id}
+    controller: App\Controller\LikeController::delete

@@ -346,7 +346,6 @@
             border: none;
             border-radius: 0.25rem;
             padding: 0.5em 0.5em;
-            margin-top: 0.5em;
             margin-bottom: 0.5em;
             background: #464646;
             color: #FFFFFF;
@@ -377,11 +376,11 @@
 
         }
 
-        .toolbar {
-            items: [ 'bold', 'italic', '|', 'undo', 'redo', '|', 'numberedList', 'bulletedList' ]
+        .imageClass{
+
         }
 
-
+z
     </style>
 </head>
 <body>
@@ -398,16 +397,14 @@
     <div class="topnav">
         <div style=" display: inline;">
             {% set break = false %}
-            {% for path in profile.getImages %}
+            {% for path in user.profile.getImages %}
                 {% if path.priority == 1 %}
-                    <a href="/profile"><img style="border-radius: 100%; float: right; vertical-align: middle; margin: 10px 20px 10px 10px;"
-                                            src="{{ asset("images/" ~ path.path ~ '') }}" width="60px" height="60px"></a>
+                    <img style="border-radius: 100%; float: right; vertical-align: middle; margin: 10px 20px 10px 10px;" src="{{ asset("images/" ~ path.path ~ '') }}" width="60px" height="60px">
                     {% set break = true %}
                 {% endif %}
             {% endfor %}
             {% if break == false %}
-                <a href="/profile"><img style="border-radius: 100%; float: right; vertical-align: middle; margin: 10px 20px 10px 10px;"
-                                        src="{{ asset("images/Profile.png") }}" width="60px" height="60px"></a>
+                <img style="border-radius: 100%; float: right; vertical-align: middle; margin: 10px 20px 10px 10px;" src="{{ asset("images/Profile.png") }}" width="60px" height="60px">
             {% endif %}
         </div>
         <a href="/profile" style="font-size:25px; vertical-align: middle; display: inline; float: right;">
@@ -417,21 +414,88 @@
 
 
 <div class="main">
+    <div class="row">
+        <div class="col-12 mt-3">
+            <div class="float-end me-3">
+            {% set likedBool = false %}
+            {% for like in  user.likes %}
+                {% if like.getUserLiked == profile.user %}
+                    {% set likedBool = true %}
+                {% endif %}
+            {% endfor %}
+            {% if likedBool == false %}
+                <button class="btn btn-outline-danger" onclick="location.href='/like/{{ profile.user.id }}'">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart" viewBox="0 0 16 16">
+                        <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z"/>
+                    </svg>
+                </button>
+            {% else %}
+                <button class="btn btn-danger" onclick="location.href='/like/delete/{{ profile.user.id }}'">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart" viewBox="0 0 16 16">
+                        <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z"/>
+                    </svg>
+                </button>
+            {% endif %}
+            </div>
+        </div>
+    </div>
     <center>
         <hr>
     </center>
+
+
     <p align="center" style="color:#FFFFFF; font-size:20px">
         Галерея</p>
-    <div>
+    <div class="w-100 ps-5 d-block ms-4">
+        {% set i = 0 %}
         {% for path in profile.getImages %}
-            <div class="d-inline-block image" style="background-image: url('{{ asset("images/" ~ path.path ~ '') }}');
+            {% if i < 6 %}
+            <div class="d-inline-block image imageClass" style="
+                    border: 4px solid #252525;
+                    background-image: url('{{ asset("images/" ~ path.path ~ '') }}');
                     background-position: center;
                     background-repeat: no-repeat;
                     background-size: cover;
                     height: 250px; width: 250px">
             </div>
+            {% endif %}
+            {% set i = i + 1 %}
+            {% if i > 6 %}
+                <div class="image disImage" style="background-image: url('{{ asset("images/" ~ path.path ~ '') }}');
+                        background-position: center;
+                        background-repeat: no-repeat;
+                        background-size: cover;
+                        display: none;
+                        height: 250px; width: 250px">
+                </div>
+            {% endif %}
         {% endfor %}
     </div>
+
+    {% if profile.getImages|length > 6 %}
+        <center>
+            <div  style="width: 100%; margin-top: 0.25em; margin-right: auto; margin-left: auto;">
+                <button class="pictureBtn d-block btn btn-success"  id="imageBtn" onclick="showImages()">Посмотреть остальные фото</button>
+            </div>
+        </center>
+
+    {% endif %}
+    <script>
+        function showImages()
+        {
+            images = document.getElementsByClassName("disImage");
+            for (i=0;i<images.length;i++)
+            {
+                if (images[i].style.display === "none"){
+                    images[i].style.display = "inline-block"
+                } else  {
+                    images[i].style.display = "none"
+                }
+            }
+
+        }
+    </script>
+
     <center>
         <hr>
     </center>
@@ -450,12 +514,23 @@
 
     <div class="information" style="padding-top: 0.5em;">
         <center>
+            <p class="mb-2" style="color:#FFFFFF; font-size:20px">Любимые жанры</p>
+            <div class="overflow-auto fs-6 text-start mt-2 mb-1 " id="genreDiv" style="width:85%;max-height: 200px;">
+                {% for genre in profile.getFavouriteGenres %}
+                    <div class="d-block">
+                        <div class="d-block mb-3">
+                            <center><div class="pt-2 d-inline-block">{{ genre.getGenre.genre }}</div></center>
+                        </div>
 
-
-            <div>
-                <div class="infoField">{{ profile.sex }}</div>
+                    </div>
+                {% endfor %}
             </div>
+
+            <p class="mb-2" style="color:#FFFFFF; font-size:20px">Пол</p>
+            <div class="infoField">{{ profile.sex }}</div>
+            <p class="mb-2" style="color:#FFFFFF; font-size:20px">Возраст</p>
             <div class="infoField">{{ profile.age }}</div>
+            <p class="mb-2" style="color:#FFFFFF; font-size:20px">Город</p>
             <div class="infoField">{{ profile.city }}</div>
         </center>
     </div>

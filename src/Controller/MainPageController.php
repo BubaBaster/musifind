@@ -20,16 +20,16 @@ class MainPageController extends AbstractController
 
      public function index(Request $request): Response
      {
+         if($this->checkAuth() == false)
+         {
+             return $this->redirectToRoute("auth");
+         }
 
          $user = $this->entityManager->getRepository(Users::class)->findOneBy([
              "login"=>$_COOKIE['login']
          ]);
          $profile = $user->getProfile();
 
-         if($this->checkAuth() == false)
-         {
-             return $this->redirectToRoute("auth");
-         }
         return $this->render("main_page/home_page.html.twig",[
                 "login"=>$_COOKIE['login'],
                 "fullName"=>$_COOKIE['fullName'],

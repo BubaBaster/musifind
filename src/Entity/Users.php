@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UsersRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: UsersRepository::class)]
@@ -24,6 +26,14 @@ class Users
 
     #[ORM\OneToOne(mappedBy: 'user', targetEntity: Profile::class, cascade: ['persist', 'remove'])]
     private $profile;
+
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Likes::class)]
+    private $likes;
+
+    public function __construct()
+    {
+        $this->likes = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -84,6 +94,36 @@ class Users
         }
 
         $this->profile = $profile;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Likes>
+     */
+    public function getLikes(): Collection
+    {
+        return $this->likes;
+    }
+
+    public function addLike(Likes $like): self
+    {
+        if (!$this->likes->contains($like)) {
+            $this->likes[] = $like;
+            $like->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeLike(Likes $like): self
+    {
+        if ($this->likes->removeElement($like)) {
+            // set the owning side to null (unless already changed)
+            if ($like->getUser() === $this) {
+                $like->setUser(null);
+            }
+        }
 
         return $this;
     }

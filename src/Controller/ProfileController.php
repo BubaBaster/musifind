@@ -3,6 +3,7 @@ namespace App\Controller;
 
 use App\Entity\FavouriteGenres;
 use App\Entity\Image;
+use App\Entity\Likes;
 use App\Entity\Profile;
 use App\Entity\Users;
 use App\Form\ImageType;
@@ -64,7 +65,8 @@ class ProfileController extends AbstractController
                         "profile"=>$profile,
                         "formImg"=>$formImg->createView(),
                         "fileError"=>true,
-                        "fileMessage"=>"Размер изображения должен быть меньше или равен 4МБ"
+                        "fileMessage"=>"Размер изображения должен быть меньше или равен 4МБ",
+                        "likes"=>$this->entityManager->getRepository(Likes::class)->findAll(),
 
                     ]
                 );
@@ -80,7 +82,8 @@ class ProfileController extends AbstractController
                         "profile"=>$profile,
                         "formImg"=>$formImg->createView(),
                         "fileError"=>true,
-                        "fileMessage"=>"Максимальное количество файлов 5!"
+                        "fileMessage"=>"Максимальное количество файлов 5!",
+                        "likes"=>$this->entityManager->getRepository(Likes::class)->findAll(),
 
                     ]
                 );
@@ -110,6 +113,7 @@ class ProfileController extends AbstractController
                 "form"=>$form->createView(),
                 "profile"=>$profile,
                 "formImg"=>$formImg->createView(),
+                "likes"=>$this->entityManager->getRepository(Likes::class)->findAll(),
 
             ]
         );

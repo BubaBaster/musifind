@@ -36,7 +36,7 @@ class SearchByGenreType extends AbstractType
             ->add('submit', SubmitType::class, [
                 "label" => "Искать",
                 "attr" => [
-                    "class" => "someBtn btn btn-success mt-3",
+                    "class" => "someBtn btn btn-success mt-4",
                 ],
             ]);
     }

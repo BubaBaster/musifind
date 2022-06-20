@@ -59,7 +59,35 @@ class ProfileType extends AbstractType
                 "required" => false,
                 "attr" => [
                     "class" => "infoInput",
-                    "placeholder" => "Город"
+                    "placeholder" => "Город",
+                    "style" => "background: #464646 !important; text-indent: 11px;",
+                ]
+            ])
+            ->add('vklink', TextType::class, [
+                "label" => "Социальные сети",
+                "required" => false,
+                "attr" => [
+                    "class" => "infoInput",
+                    "placeholder" => "Ссылка на страницу VK",
+                    "style" => "background: #464646 !important; text-indent: 11px;",
+                ]
+            ])
+            ->add('instlink', TextType::class, [
+                "label" => false,
+                "required" => false,
+                "attr" => [
+                    "class" => "infoInput",
+                    "placeholder" => "Имя пользователя Instagram",
+                    "style" => "background: #464646 !important; text-indent: 11px;",
+                ]
+            ])
+            ->add('tglink', TextType::class, [
+                "label" => false,
+                "required" => false,
+                "attr" => [
+                    "class" => "infoInput",
+                    "placeholder" => "Имя пользователя Telegram",
+                    "style" => "background: #464646 !important; text-indent: 11px;",
                 ]
             ])
             ->add('about', CKEditorType::class, [
@@ -68,7 +96,7 @@ class ProfileType extends AbstractType
                 "config" => [
                     "uiColor" => "#000000",
                     "language" => "ru",
-//                    "removeButtons" => 'Source,Save,NewPage,Preview,Templates,Cut,Copy,Paste,PasteText,PasteFromWord,Print,SpellChecker,Scayt,Undo,Redo,Find,Replace,SelectAll,RemoveFormat,Form,Checkbox,Radio,TextField,Textarea,Select,Button,ImageButton,HiddenField,Bold,Italic,Underline,Strike,Subscript,Superscript,NumberedList,BulletedList,Outdent,Indent,Blockquote,JustifyLeft,JustifyCenter,JustifyRight,JustifyBlock,Link,Unlink,Anchor,Image,Flash,Table,HorizontalRule,Smiley,SpecialChar,PageBreak,TextColor,BGColor,Maximize,ShowBlocks,About',
+                    "resize_enabled"=> false,
                 ],
                 "attr" => [
                     "placeholder" => "Расскажите о себе"

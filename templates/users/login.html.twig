@@ -9,7 +9,7 @@
     }
 
     .topnav {
-        border-bottom: 1.5px solid;
+        border-bottom: 2px solid;
         margin-bottom: 2em;
     }
 
@@ -51,22 +51,20 @@
 
     hr {
         border: none;
-        border-bottom: 2px solid #646B67;
-        color: #646B67;
+        border-bottom: 2px solid #464646;
+        color: #464646;
         height: 2px;
         width: 100%;
+        opacity: 1; !important;
+        margin: 0.5em 0; !important;
     }
 
 </style>
 {% endblock %}
 {% block body %}
     <div class="topnav">
-        <center> <h4 style="font-size: 25px">Musifind</h4></center>
+        <center> <h4 style="font-size: 35px; color: #198754; font-family: Rancho">Musifind</h4></center>
     </div>
-    {% for message in app.flashes('success') %}
-            {{ message }}
-    {% endfor %}
-
 
     <div class="formDiv">
         {{ form_start(form) }}

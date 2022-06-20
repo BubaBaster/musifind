@@ -3,7 +3,7 @@
 <head>
     <title>Профиль</title>
     <link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Rancho" />
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Rancho"/>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
@@ -16,8 +16,7 @@
     {{ encore_entry_link_tags('app') }}
     <style>
 
-        .select2-container--bootstrap-5.select2-container--focus .select2-selection, .select2-container--bootstrap-5.select2-container--open .select2-selection
-        {
+        .select2-container--bootstrap-5.select2-container--focus .select2-selection, .select2-container--bootstrap-5.select2-container--open .select2-selection {
             border-color: transparent;
             box-shadow: none;
         }
@@ -177,7 +176,7 @@
 
         .information {
             width: 45%;
-            height: 579px;
+            height: 1125px;
             margin-left: auto;
             margin-right: auto;
             border-radius: 0.5rem;
@@ -454,7 +453,8 @@
             color: #FFFFFF;
             font-size: 25px;
             display: block;
-            margin: 10px 10px; !important;
+            margin: 10px 10px;
+        !important;
         }
 
         .swiper {
@@ -489,6 +489,10 @@
             object-fit: cover;
         }
 
+        .select2-search__field{
+            color: #FFFFFF !important;
+        }
+
     </style>
 </head>
 <body>
@@ -508,14 +512,14 @@
             {% set break = false %}
             {% for path in profile.getImages %}
                 {% if path.priority == 1 %}
-                   <img style="border-radius: 100%; float: right; vertical-align: middle; margin: 10px 20px 10px 10px;"
-                        src="{{ asset("images/" ~ path.path ~ '') }}" onclick="location.href('/profile')" width="60px" height="60px">
+                    <img style="border-radius: 100%; float: right; vertical-align: middle; margin: 10px 20px 10px 10px;"
+                         src="{{ asset("images/" ~ path.path ~ '') }}" onclick="location.href('/profile')" width="60px"
+                         height="60px">
                     {% set break = true %}
                 {% endif %}
             {% endfor %}
             {% if break == false %}
-                <a href="/profile"><img style="border-radius: 100%; float: right; vertical-align: middle; margin: 10px 20px 10px 10px;"
-                                        src="{{ asset("images/Profile.png") }}" width="60px" height="60px"></a>
+                <img style="border-radius: 100%; float: right; vertical-align: middle; margin: 10px 20px 10px 10px;" src="{{ asset("images/Profile.png") }}" width="60px" height="60px">
             {% endif %}
         </div>
         <a href="/profile" style="font-size:25px; vertical-align: middle; display: inline; float: right;">
@@ -525,85 +529,113 @@
 
 
 <div class="main">
-<div class="row">
-    <div class="col-12 mt-3">
+    <div class="row">
+        <div class="col-12 mt-3">
 
 
-    <div class="dropdown float-end me-3">
-        <a class="btn btn-success dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bell" viewBox="0 0 16 16">
-                <path d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2zM8 1.918l-.797.161A4.002 4.002 0 0 0 4 6c0 .628-.134 2.197-.459 3.742-.16.767-.376 1.566-.663 2.258h10.244c-.287-.692-.502-1.49-.663-2.258C12.134 8.197 12 6.628 12 6a4.002 4.002 0 0 0-3.203-3.92L8 1.917zM14.22 12c.223.447.481.801.78 1H1c.299-.199.557-.553.78-1C2.68 10.2 3 6.88 3 6c0-2.42 1.72-4.44 4.005-4.901a1 1 0 1 1 1.99 0A5.002 5.002 0 0 1 13 6c0 .88.32 4.2 1.22 6z"/>
-            </svg>
-        </a>
+            <div class="dropdown float-end me-3">
+                <a class="btn btn-danger dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+                   data-bs-toggle="dropdown" aria-expanded="false">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                         class="bi bi-heart-fill" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd"
+                              d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"/>
+                    </svg>
+                </a>
 
-        <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-            {% set empty = true %}
-            {% for like in likes|reverse %}
-                {% if like.userLiked == profile.user %}
-                    {% set empty = false %}
-                    <li><a class="dropdown-item" href="/profile/{{ like.user.profile.id }}">{{  like.user.login }} оценил вас
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="pink" class="bi bi-heart" viewBox="0 0 16 16">
-                                <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z"/>
-                            </svg>
-                            <div class="text-secondary " style="font-size: 14px">{{ like.date|date("d.m.Y H:i:s") }}</div>
-                        </a>
-                    </li>
-                {% endif %}
-            {% endfor %}
-            {% if empty == true %}
-            <li class="dropdown-item">
-                Вас пока никто не оценил
-            </li>
-            {% endif %}
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                    {% set empty = true %}
+                    {% for like in likes|reverse %}
+                        {% if like.userLiked == profile.user %}
+                            {% set empty = false %}
+                            <li><a class="dropdown-item"
+                                   href="/profile/{{ like.user.profile.id }}">{{ like.user.login }} оценил вас
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
+                                         class="bi bi-heart-fill" viewBox="0 0 16 16">
+                                        <path fill-rule="evenodd"
+                                              d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"/>
+                                    </svg>
+                                    <div class="text-secondary "
+                                         style="font-size: 14px">{{ like.date|date("d.m.Y H:i:s") }}</div>
+                                </a>
+                            </li>
+                        {% endif %}
+                    {% endfor %}
+                    {% if empty == true %}
+                        <li class="dropdown-item">
+                            Вас пока никто не оценил
+                        </li>
+                    {% endif %}
 
-        </ul>
+                </ul>
+            </div>
+
+            <div class="dropdown float-end me-3">
+                <a class="btn btn-success dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+                   data-bs-toggle="dropdown" aria-expanded="false">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-question-square-fill" viewBox="0 0 16 16">
+                        <path d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm3.496 6.033a.237.237 0 0 1-.24-.247C5.35 4.091 6.737 3.5 8.005 3.5c1.396 0 2.672.73 2.672 2.24 0 1.08-.635 1.594-1.244 2.057-.737.559-1.01.768-1.01 1.486v.105a.25.25 0 0 1-.25.25h-.81a.25.25 0 0 1-.25-.246l-.004-.217c-.038-.927.495-1.498 1.168-1.987.59-.444.965-.736.965-1.371 0-.825-.628-1.168-1.314-1.168-.803 0-1.253.478-1.342 1.134-.018.137-.128.25-.266.25h-.825zm2.325 6.443c-.584 0-1.009-.394-1.009-.927 0-.552.425-.94 1.01-.94.609 0 1.028.388 1.028.94 0 .533-.42.927-1.029.927z"/>
+                    </svg>
+                    </svg>
+                </a>
+
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+
+                    <li class="dropdown-item">Чтобы другие пользователи смогли увидеть вас в поиске, заполните свой профиль.</li>
+                    <li class="dropdown-item">Чтобы сделать ваш опыт пользования сайтом наиболее приятным, советуем указать максимальное количество информации о себе.</li>
+                    <li class="dropdown-item">На добавленную фотографию можно навестись курсором, чтобы удалить её или сделать основной фотографией профиля.</li>
+                    <li class="dropdown-item">Поиск жанров при заполнении поля "любимые жанры" осуществляется как на русском, так и на английском языках.</li>
+                    <li class="dropdown-item">Рекомендуем не указывать свой номер телефона на странице профиля.</li>
+                </ul>
+            </div>
+
+        </div>
     </div>
-    </div>
-</div>
     <center>
         <hr>
     </center>
     <p align="center" style="color:#FFFFFF; font-size:20px">
         Галерея</p>
 
-    <div class="w-100 ps-5 d-block ms-4 ">
+    <div class="w-100 ps-5 d-block ms-5 ">
 
         {% set i = 0 %}
         {% for path in profile.getImages %}
             {% if i < 6 %}
 
 
-            <div class="d-inline-block image " style="
-                    border: 4px solid #252525;
-                    background-image: url('{{ asset("images/" ~ path.path ~ '') }}');
-                    background-position: center;
-                    background-repeat: no-repeat;
-                    background-size: cover;
-                    height: 250px; width: 250px">
+                <div class="d-inline-block image " style="
+                        border: 4px solid #252525;
+                        background-image: url('{{ asset("images/" ~ path.path ~ '') }}');
+                        background-position: center;
+                        background-repeat: no-repeat;
+                        background-size: cover;
+                        height: 250px; width: 250px">
 
-                {#                <h1 class="text-danger">{{ path.getPriority }}</h1> #}
-                <div class="tools">
+                    <div class="tools">
 
-                    <button type="button" class="btn btn-outline-danger float-end me-1 mt-1 pt-1 pb-1 ps-2 pe-2"
-                            title="Удалить"
-                            onclick="location.href='/image/delete/{{ path.getId }}'">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16">
-                            <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z"/>
-                        </svg>
-                    </button>
-                    <button type="button" class="btn btn-outline-success float-end me-1 mt-1 pt-1 pb-1 ps-2 pe-2"
-                            title="Сделать основной"
-                            onclick="location.href='/image/avatar/{{ path.getId }}/{{ profile.getId }}'">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16">
-                            <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
-                        </svg>
-                    </button>
+                        <button type="button" class="btn btn-outline-danger float-end me-1 mt-1 pt-1 pb-1 ps-2 pe-2"
+                                title="Удалить"
+                                onclick="location.href='/image/delete/{{ path.getId }}'">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                 class="bi bi-trash-fill" viewBox="0 0 16 16">
+                                <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z"/>
+                            </svg>
+                        </button>
+                        <button type="button" class="btn btn-outline-success float-end me-1 mt-1 pt-1 pb-1 ps-2 pe-2"
+                                title="Сделать основной"
+                                onclick="location.href='/image/avatar/{{ path.getId }}/{{ profile.getId }}'">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
+                                 class="bi bi-person-fill" viewBox="0 0 16 16">
+                                <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
+                            </svg>
+                        </button>
+                    </div>
                 </div>
-            </div>
             {% endif %}
             {% set i = i + 1 %}
             {% if i > 6 %}
-                <div class=" image disImage"  style="background-image: url('{{ asset("images/" ~ path.path ~ '') }}');
+                <div class=" image disImage" style="background-image: url('{{ asset("images/" ~ path.path ~ '') }}');
                         background-position: center;
                         border: 4px solid #252525;
                         background-repeat: no-repeat;
@@ -617,14 +649,16 @@
                         <button type="button" class="btn btn-outline-danger float-end me-1 mt-1 pt-1 pb-1 ps-2 pe-2"
                                 title="Удалить"
                                 onclick="location.href='/image/delete/{{ path.getId }}'">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                 class="bi bi-trash-fill" viewBox="0 0 16 16">
                                 <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z"/>
                             </svg>
                         </button>
                         <button type="button" class="btn btn-outline-success float-end me-1 mt-1 pt-1 pb-1 ps-2 pe-2"
                                 title="Сделать основной"
                                 onclick="location.href='/image/avatar/{{ path.getId }}/{{ profile.getId }}'">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
+                                 class="bi bi-person-fill" viewBox="0 0 16 16">
                                 <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
                             </svg>
                         </button>
@@ -635,43 +669,43 @@
 
         {% endfor %}
     </div>
-        {% if profile.getImages|length > 6 %}
-            <center>
-            <div  style="width: 100%; margin-top: 0.25em; margin-right: auto; margin-left: auto;">
-                <button class="pictureBtn d-block btn btn-success"  id="imageBtn" onclick="showImages()">Посмотреть остальные фото</button>
+    {% if profile.getImages|length > 6 %}
+        <center>
+            <div style="width: 100%; margin-top: 0.25em; margin-right: auto; margin-left: auto;">
+                <button class="pictureBtn d-block btn btn-success" id="imageBtn" onclick="showImages()">Посмотреть
+                    остальные фото
+                </button>
             </div>
-            </center>
+        </center>
 
-        {% endif %}
-        <script>
-            function showImages()
-            {
-                images = document.getElementsByClassName("disImage");
-                for (i=0;i<images.length;i++)
-                {
-                    if (images[i].style.display === "none"){
-                        images[i].style.display = "inline-block"
-                    } else  {
-                        images[i].style.display = "none"
-                    }
+    {% endif %}
+    <script>
+        function showImages() {
+            images = document.getElementsByClassName("disImage");
+            for (i = 0; i < images.length; i++) {
+                if (images[i].style.display === "none") {
+                    images[i].style.display = "inline-block"
+                } else {
+                    images[i].style.display = "none"
                 }
-
             }
-        </script>
+
+        }
+    </script>
 
     <center>
-        <div style="width: 100%; margin-top: 0.25em; margin-right: auto; margin-left: auto;">
+        <div style="width: 100%; margin-top: 0.25em;">
             <button class="pictureBtn btn btn-success" id="myBtn">Добавить фотографию</button>
             </form>
         </div>
         <div id="myModal" class="modal"
              {% if fileError is defined and fileError==true %}style="display: block"{% endif %}>
 
-
-            <div class="modal-content">
+            <div class="modal-content" style="width: 45%">
                 <div class="modal-header">
                     <span class="close">&times;</span>
-                    <h2>Загрузите до 5 фотографий в галерею.</h2>
+                    <p style="color:#FFFFFF; font-size:22px; margin-right: 12.2em; margin-top: 0.8em;">
+                            Загрузите до 6 фотографий.</p>
                 </div>
                 <div class="modal-body">
                     {% if fileError is defined and fileError==true %}
@@ -748,7 +782,11 @@
             {{ form_label(form.age) }}<br>
             {{ form_widget(form.age) }}<br>
             {{ form_label(form.city) }}<br>
-            {{ form_widget(form.city) }}
+            {{ form_widget(form.city) }}<br>
+            {{ form_label(form.vklink) }}<br>
+            {{ form_widget(form.vklink) }}<br>
+            {{ form_widget(form.instlink) }}<br>
+            {{ form_widget(form.tglink) }}
             {{ form_end(form) }}
         </center>
     </div>

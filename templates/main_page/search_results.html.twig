@@ -329,7 +329,7 @@
                                 <img href="/profile/{{ user.id }}" onclick="location.href('/profile/{{ user.id }}')"
                                      src="images/{{ image.getPath }}" class="swiper-lazy">
                                 <a class="title " href="/profile/{{ user.id }}" data-swiper-parallax="-100">
-                                    <button class="btn btn-success">{{ user.login }}</button>
+                                    <button class="btn btn-success">{{ user.profile.getFullName() }}</button>
                                 </a>
                                 {% set noAvatar = false %}
                             {% endif %}
@@ -340,7 +340,7 @@
                                 <img href="/profile/{{ user.id }}" onclick="location.href('/profile/{{ user.id }}')"
                                      src="images/{{ image.getPath }}" class="swiper-lazy">
                                 <a class="title " href="/profile/{{ user.id }}" data-swiper-parallax="-100">
-                                    <button class="btn btn-success">{{ user.login }}</button>
+                                    <button class="btn btn-success">{{ user.profile.getFullName() }}</button>
                                 </a>
                             {% endif %}
                             {% set i = i + 1 %}
@@ -349,7 +349,7 @@
                             <img href="/profile/{{ user.id }}" onclick="location.href('/profile/{{ user.id }}')"
                                  src="{{ asset("images/Profile.png") }}" class="swiper-lazy">
                             <a class="title " href="/profile/{{ user.id }}" data-swiper-parallax="-100">
-                                <button class="btn btn-success">{{ user.login }}</button>
+                                <button class="btn btn-success">{{ user.profile.getFullName() }}</button>
                             </a>
                         {% endif %}
 
@@ -363,26 +363,6 @@
         <div class="swiper-button-prev"></div>
         <div class="swiper-button-next"></div>
     </div>
-
-    <!-- Swiper JS -->
-
-
-
-    {#    <div class="bg-success">#}
-    {#        {% for userHigh in usersHigh %}#}
-    {#        {{ userHigh.login }}#}
-    {#        {% endfor %}#}
-    {#    </div>#}
-    {#    <div class="bg-warning">#}
-    {#        {% for userMid in usersMid %}#}
-    {#            {{ userMid.login }}#}
-    {#        {% endfor %}#}
-    {#    </div>#}
-    {#    <div class="bg-danger">#}
-    {#        {% for userLow in usersLow %}#}
-    {#            {{ userLow.login }}#}
-    {#        {% endfor %}#}
-    {#    </div>#}
 </div>
 
 <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>

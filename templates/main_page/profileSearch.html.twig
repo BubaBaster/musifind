@@ -439,11 +439,10 @@ z
             </div>
         </div>
     </div>
-    <center>
-        <hr>
-    </center>
-
-
+    <center><hr>
+    <a href="/profile" style="font-size:20px;  text-decoration: none; color: #FFFFFF">
+        Имя пользователя: {{ profile.user.fullName }}</a></center>
+    <center><hr></center>
     <p align="center" style="color:#FFFFFF; font-size:20px">
         Галерея</p>
     <div class="w-100 ps-5 d-block ms-4">
@@ -532,6 +531,13 @@ z
             <div class="infoField">{{ profile.age }}</div>
             <p class="mb-2" style="color:#FFFFFF; font-size:20px">Город</p>
             <div class="infoField">{{ profile.city }}</div>
+            <p class="mb-2" style="color:#FFFFFF; font-size:20px">Вконтакте</p>
+            <div class="infoField"><a style="text-decoration: none; color: #198754" href="{{ profile.vklink }}">{{ profile.vklink }}
+                </a></div>
+            <p class="mb-2" style="color:#FFFFFF; font-size:20px">Инстаграм</p>
+            <div class="infoField">{{ profile.instlink }}</div>
+            <p class="mb-2" style="color:#FFFFFF; font-size:20px">Телеграм</p>
+            <div class="infoField">{{ profile.tglink }}</div>
         </center>
     </div>
 

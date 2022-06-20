@@ -36,6 +36,15 @@ class Profile
     #[ORM\OneToMany(mappedBy: 'idProfile', targetEntity: FavouriteGenres::class, orphanRemoval: true)]
     private $favouriteGenres;
 
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    private $vklink;
+
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    private $instlink;
+
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    private $tglink;
+
     public function __construct()
     {
         $this->images = new ArrayCollection();
@@ -163,6 +172,42 @@ class Profile
                 $favouriteGenre->setIdProfile(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getVklink(): ?string
+    {
+        return $this->vklink;
+    }
+
+    public function setVklink(?string $vklink): self
+    {
+        $this->vklink = $vklink;
+
+        return $this;
+    }
+
+    public function getInstlink(): ?string
+    {
+        return $this->instlink;
+    }
+
+    public function setInstlink(?string $instlink): self
+    {
+        $this->instlink = $instlink;
+
+        return $this;
+    }
+
+    public function getTglink(): ?string
+    {
+        return $this->tglink;
+    }
+
+    public function setTglink(?string $tglink): self
+    {
+        $this->tglink = $tglink;
 
         return $this;
     }
